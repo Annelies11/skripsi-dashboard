@@ -55,9 +55,29 @@ window.addEventListener("load", () => {
         })
         .catch((error) => console.error("Error fetching DHT22 value:", error));
     }
+    function fetchCrispVal() {
+      fetch("/api/crispVal")
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById("crispVal").innerText = data.value;
+        })
+        .catch((error) => console.error("Error fetching crisp value:", error));
+    }
+    function fetchFanSpeed() {
+      fetch("/api/fanSpeed")
+        .then((response) => response.json())
+        .then((data) => {
+          document.getElementById("fanSpeed").innerText = data.value + " °C";
+        })
+        .catch((error) =>
+          console.error("Error fetching fan speed value:", error)
+        );
+    }
 
     // Update nilai setiap 1 detik
     setInterval(fetchMQ135Value, 1000);
     setInterval(fetchDHT22Value, 1000);
+    setInterval(fetchCrispVal, 1000);
+    setInterval(fetchFanSpeed, 1000);
   };
 });

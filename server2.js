@@ -80,10 +80,10 @@ app.get("/api/dht22", (req, res) => {
   res.json({ value: lastDHTValue });
 });
 app.get("/api/crispVal", (req, res) => {
-  res.json({ value: lastDHTValue });
+  res.json({ value: lastCrispVal });
 });
 app.get("/api/fanSpeed", (req, res) => {
-  res.json({ value: lastDHTValue });
+  res.json({ value: lastFanSpeed });
 });
 
 app.use(express.static("public")); // Sajikan file HTML
