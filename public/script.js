@@ -67,7 +67,7 @@ window.addEventListener("load", () => {
       fetch("/api/fanSpeed")
         .then((response) => response.json())
         .then((data) => {
-          document.getElementById("fanSpeed").innerText = data.value + " °C";
+          document.getElementById("fanSpeed").innerText = data.value;
         })
         .catch((error) =>
           console.error("Error fetching fan speed value:", error)
