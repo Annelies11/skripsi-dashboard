@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MQTT Electrostatic Precipitator</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="highchart.js"></script>
+    <script defer src="script.js"></script>
+  </head>
+  <body>
+    <div class="topnav">
+      <h1>ELECTROSTATIC PRECIPITATOR (EP) DASHBOARD</h1>
+    </div>
+    <div class="content">
+      <div class="card-grid">
+        <div class="card">
+          <p class="card-title">EP MONITORING</p>
+          <div id="chart-dht22" style="width: 100%; height: 400px"></div>
+          <div id="chart-mq135" style="width: 100%; height: 400px"></div>
+        </div>
+      </div>
+    </div>
+
+    <h3>
+      MQ135 Value: <span id="mq135-value">Waiting for data...</span> | DHT22
+      Value: <span id="dht22-value">Waiting for data...</span>
+    </h3>
+
+    <!-- <h2>Real-time MQTT Data 2</h2> -->
+    <!-- <div id="chart-temperature" style="width: 100%; height: 400px"></div> -->
+    <!-- <script src="script.js"></script> -->
+    <!-- <h2>MQTT Messages</h2> -->
+    <!-- <div id="messages"></div> -->
+
+    <h2>EP CONTROL</h2>
+    <!-- <input type="text" id="messageInput" placeholder="Enter message" /> -->
+    <!-- <button onclick="sendMessage()">Publish</button> -->
+    <button class="button-1" onclick="sendMsg('HVON')">ELECTROSTATIC ON</button>
+    <button class="button-2" onclick="sendMsg('HVOFF')">
+      ELECTROSTATIC OFF
+    </button>
+    <br /><br />
+    <button class="button-1" onclick="sendMsg('FANINC')">➕ FAN SPEED</button>
+    <button class="button-2" onclick="sendMsg('FANDEC')">➖ FAN SPEED</button>
+    <br /><br />
+    <script>
+      const ws = new WebSocket("ws://localhost:3000");
+
+      ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        const messageDiv = document.getElementById("messages");
+        messageDiv.innerHTML += `<p><strong>${data.topic}:</strong> ${data.message}</p>`;
+      };
+
+      function sendMessage() {
+        const input = document.getElementById("messageInput");
+        ws.send(input.value);
+        input.value = "";
+      }
+
+      function sendMsg(msg) {
+        ws.send(msg);
+        input.value = "";
+      }
+    </script>
+  </body>
+</html>
