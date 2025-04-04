@@ -40,6 +40,38 @@
     <h2>EP CONTROL</h2>
     <!-- <input type="text" id="messageInput" placeholder="Enter message" /> -->
     <!-- <button onclick="sendMessage()">Publish</button> -->
+    <div class="container">
+      <h3>Pilih Mode:</h3>
+
+      <!-- <input type="radio" id="auto" name="mode" value="AUTO" checked />
+      <label for="auto">Auto</label>
+
+      <input type="radio" id="manual" name="mode" value="MANUAL" />
+      <label for="manual">Manual</label> -->
+      <div class="switch">
+        <input
+          type="radio"
+          class="switch-input"
+          name="mode"
+          value="MANUAL"
+          id="manual"
+          onchange="sendMode()"
+          checked
+        />
+        <label for="manual" class="switch-label switch-label-off">MANUAL</label>
+        <input
+          type="radio"
+          class="switch-input"
+          name="mode"
+          value="AUTO"
+          id="auto"
+          onchange="sendMode()"
+        />
+        <label for="auto" class="switch-label switch-label-on">AUTO</label>
+        <span class="switch-selection"></span>
+      </div>
+    </div>
+
     <button class="button-1" onclick="sendMsg('HVON')">ELECTROSTATIC ON</button>
     <button class="button-2" onclick="sendMsg('HVOFF')">
       ELECTROSTATIC OFF
@@ -66,6 +98,16 @@
       function sendMsg(msg) {
         ws.send(msg);
         input.value = "";
+      }
+
+      function sendMode() {
+        let mode = document.querySelector('input[name="mode"]:checked').value;
+        if (ws.readyState === WebSocket.OPEN) {
+          ws.send(mode); // Kirim langsung saat radio button berubah
+          console.log("Sent: " + mode);
+        } else {
+          console.log("WebSocket not connected");
+        }
       }
     </script>
   </body>
