@@ -18,7 +18,7 @@ const options = {
 
 let lastMQ135Value = "Waiting for data...";
 let lastDHTValue = "Waiting for data...";
-let lastCrispVal = "Waiting for data...";
+// let lastCrispVal = "Waiting for data...";
 let lastFanSpeed = "Waiting for data...";
 
 // Inisialisasi MQTT
@@ -28,7 +28,7 @@ client.on("connect", () => {
   console.log("Connected to MQTT Broker");
   client.subscribe("esp32/dht22");
   client.subscribe("esp32/mq135");
-  client.subscribe("esp32/crispVal");
+  // client.subscribe("esp32/crispVal");
   client.subscribe("esp32/fanSpeed");
 });
 
@@ -41,9 +41,9 @@ client.on("message", function (topic, message) {
   if (topic === "esp32/dht22") {
     lastDHTValue = message.toString();
   }
-  if (topic === "esp32/crispVal") {
-    lastCrispVal = message.toString();
-  }
+  // if (topic === "esp32/crispVal") {
+  //   lastCrispVal = message.toString();
+  // }
   if (topic === "esp32/fanSpeed") {
     lastFanSpeed = message.toString();
   }
@@ -79,9 +79,9 @@ app.get("/api/mq135", (req, res) => {
 app.get("/api/dht22", (req, res) => {
   res.json({ value: lastDHTValue });
 });
-app.get("/api/crispVal", (req, res) => {
-  res.json({ value: lastCrispVal });
-});
+// app.get("/api/crispVal", (req, res) => {
+//   res.json({ value: lastCrispVal });
+// });
 app.get("/api/fanSpeed", (req, res) => {
   res.json({ value: lastFanSpeed });
 });
