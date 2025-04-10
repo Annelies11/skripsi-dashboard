@@ -77,7 +77,7 @@ window.addEventListener("load", () => {
     // Update nilai setiap 1 detik
     setInterval(fetchMQ135Value, 1000);
     setInterval(fetchDHT22Value, 1000);
-    setInterval(fetchCrispVal, 1000);
+    // setInterval(fetchCrispVal, 1000);
     setInterval(fetchFanSpeed, 1000);
   };
 });
